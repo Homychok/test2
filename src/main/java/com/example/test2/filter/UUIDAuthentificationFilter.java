@@ -1,7 +1,7 @@
 package com.example.test2.filter;
 
 import com.example.test2.model.Token;
-import com.example.test2.service.AuthenticationService;
+import com.example.test2.service.AuthentificationService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,18 +21,18 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-public class UUIDAuthenticationFilter extends OncePerRequestFilter {
-    private final AuthenticationService authenticationService;
+public class UUIDAuthentificationFilter extends OncePerRequestFilter {
+    private  AuthentificationService authentificationService;
 
-    public UUIDAuthenticationFilter(AuthenticationService authenticationService) {
-        this.authenticationService = authenticationService;
+    public UUIDAuthentificationFilter(AuthentificationService authentificationService) {
+        this.authentificationService = authentificationService;
     }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String uuid = request.getHeader("X-Auth-Token");
         if (StringUtils.hasText(uuid)) {
-            Optional<Token> token = authenticationService.findbyUUID(uuid);
+            Optional<Token> token = authentificationService.findbyUUID(uuid);
             if(token.isPresent()) {
                 Authentication authentication = new UsernamePasswordAuthenticationToken(
                         token.get(),

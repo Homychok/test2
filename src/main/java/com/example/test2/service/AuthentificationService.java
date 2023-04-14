@@ -9,13 +9,11 @@ import java.time.Instant;
 import java.util.Optional;
 
 @Service
-public class AuthenticationService {
+public class AuthentificationService {
     private TokenRepository tokenRepositary;
-    private final Integer expiredSec;
 
-    public AuthenticationService(TokenRepository tokenRepository, @Value("%{telematika.security.token-expired}") Integer expiredSec) {
+    public AuthentificationService(TokenRepository tokenRepository) {
         this.tokenRepositary = tokenRepository;
-        this.expiredSec = expiredSec;
     }
 
     public Optional<Token> findbyUUID(String uuid) {
