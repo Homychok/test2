@@ -1,6 +1,6 @@
 package com.example.test2.config;
 
-import com.example.test2.filter.UUIDAuthenticationFilter;
+import com.example.test2.filter.UUIDAuthentificationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,10 +12,10 @@ import org.springframework.security.web.access.ExceptionTranslationFilter;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    private final UUIDAuthenticationFilter uuidAuthenticationFilter;
+    private UUIDAuthentificationFilter uuidAuthentificationFilter;
 
-    public SecurityConfig(UUIDAuthenticationFilter uuidAuthenticationFilter) {
-        this.uuidAuthenticationFilter = uuidAuthenticationFilter;
+    public SecurityConfig(UUIDAuthentificationFilter uuidAuthentificationFilter) {
+        this.uuidAuthentificationFilter = uuidAuthentificationFilter;
     }
 
     @Bean
@@ -32,7 +32,7 @@ public class SecurityConfig {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilterBefore(uuidAuthenticationFilter, ExceptionTranslationFilter.class)
+                .addFilterBefore(uuidAuthentificationFilter, ExceptionTranslationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/indicators/{serial}").permitAll()
                 .anyRequest().authenticated();
